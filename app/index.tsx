@@ -1,8 +1,10 @@
 import { Text, View, StyleSheet, 
 		TextInput, Pressable
 } from "react-native";
+//para utilizar una fuente custom 
 import { useFonts } from "expo-font";
 import IconRocket from './iconrocket';
+import IconCar from './iconcar';
 
 //https://docs.expo.dev/develop/user-interface/fonts/
 //https://reactsvgicons.com/react-svg-icons-guide
@@ -17,8 +19,9 @@ export default function Index() {
   return (
     <View style={styles.container}>
 		<IconRocket width='100' height='100'></IconRocket>
-		<Text style={styles.title}>AppTitle</Text>
-		<Text >¡Te damos la bienvenida!</Text>
+		<IconCar width='50' height='50'></IconCar> 
+		<Text style={styles.title}>Regalify</Text>
+		<Text >¡UN regalo sorpresa cada semana!</Text>
 		<View style={styles.inputfieldlabel}>
 			<Text >Usuario</Text>
 			<TextInput style={styles.input}></TextInput>
@@ -27,12 +30,14 @@ export default function Index() {
 			<Text >Contraseña</Text>
 			<TextInput style={styles.input} secureTextEntry="true"></TextInput>
 		</View>
-		<Pressable style={styles.botonconlogo}>
-			<IconRocket width='32' height='32'></IconRocket>
-			<Text>Log in!</Text>
+		<Pressable style={styles.botonconlogo}
+		 onPress={()=>{alert("no implementado")}}
+		>
+			<IconCar width='32' height='32'></IconCar>
+			<Text>Accede YA</Text>
 		</Pressable>
 		<Text >¿No tienes una cuenta?</Text>
-		<Pressable style={styles.botonconlogo}>
+		<Pressable style={styles.botonconlogo}>  
 			<IconRocket width='32' height='32'></IconRocket>
 			<Text>Regístrate.</Text>
 		</Pressable>
@@ -55,7 +60,7 @@ const styles=StyleSheet.create(
 		},
 		inputfieldlabel:
 		{
-			flexDirection:'row',
+			flexDirection:'row', //verticalLayout 
 			alignItems: 'center',
 			justifyContent: 'flex-end',
 			width:'60%'
@@ -72,8 +77,8 @@ const styles=StyleSheet.create(
 			backgroundColor:'#F9D689',
 			flexDirection:'row',
 			alignItems: 'center',
-			padding:5,
-			borderRadius:15
+			padding:10,
+			borderRadius:5
 		},
 		//#973131 #E0A75E #F9D689 #F5E7B2
 		

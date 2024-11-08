@@ -26,7 +26,7 @@ export default function Index() {
 	//Hace que las variables loginData y setLoginData correspondan con las que provee MyContext
 	const {loginData, setLoginData} = useContext(MyContext);
 	
-	const onPassValue = (pass) =>
+	const onPassValue = (pass: string) =>
 	{
 		setPassValue(pass);
 	}
@@ -60,7 +60,7 @@ export default function Index() {
 			body:form,
 		})
 		.then( response => response.json()
-		).then( data=> {
+		).then( data => {
 			if(!data.error && data.id)
 			{
 				setLoginData(data);
@@ -87,7 +87,7 @@ export default function Index() {
 		<View style={styles.inputfieldlabel}>
 			<Text >Contraseña</Text>
 			<TextInput style={styles.input} 
-				secureTextEntry="true"
+				secureTextEntry={true}
 				onChangeText={onPassValue}
 			></TextInput>
 		</View>

@@ -89,59 +89,54 @@ export default function Register()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ConnectMe Register</Text>
-      <Text>Conecta, Impacta, Destaca</Text>
-      <Text>Inicia tu registro con nosotros</Text>
+      <View style={styles.innerContainer}>
+        <Text style={styles.title}>ConnectMe Register</Text>
+        <Text style={styles.infoText}>Inicia tu registro con nosotros</Text>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >ID</Text>
-        <TextInput style={styles.input} onChangeText={setUserID}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>ID</Text>
+          <TextInput style={styles.input} onChangeText={setUserID} placeholder="Ingresa tu ID" />
         </View>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >Username</Text>
-        <TextInput style={styles.input} onChangeText={setUsername}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>Usuario</Text>
+          <TextInput style={styles.input} onChangeText={setUsername} placeholder="Ingresa tu usuario" />
         </View>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >Password</Text>
-        <TextInput style={styles.input} onChangeText={setPassword}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>Nombre</Text>
+          <TextInput style={styles.input} onChangeText={setFirsname} placeholder="Ingresa tu nombre" />
         </View>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >First Name</Text>
-        <TextInput style={styles.input} onChangeText={setFirsname}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>Apellido</Text>
+          <TextInput style={styles.input} onChangeText={setLastname} placeholder="Ingresa tu apellido" />
         </View>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >Last Name</Text>
-        <TextInput style={styles.input} onChangeText={setLastname}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput style={styles.input} onChangeText={setEmail} placeholder="Ingresa tu email" />
         </View>
 
-      <View style={styles.inputfieldlabel}>
-        <Text >Email</Text>
-        <TextInput style={styles.input} onChangeText={setEmail}></TextInput>
+        <View style={styles.inputFieldLabel}>
+          <Text style={styles.label}>Contraseña</Text>
+          <TextInput style={styles.input} secureTextEntry={true} onChangeText={setPassword} placeholder="Ingresa tu contraseña" />
         </View>
 
-      {failedRegister? (<Text style={styles.error}>{errorMessage}</Text>):undefined}
-{/* 
-      <Pressable onPress={onButtonBackIndex} style={styles.button}> 
-			  <Text>Regístrate.</Text>
-		  </Pressable>
+        {failedRegister && <Text style={styles.error}>Registro fallido, intenta de nuevo</Text>}
 
-      <Link href="/" asChild>
-        <Button title ="Registrarse"></Button>
-      </Link>
-*/}
-      <Link href="/" asChild>
-        <Pressable onPress={onButtonBackIndex} style={styles.button}>
-          <Text style={styles.buttonText}>Regístrate</Text>
-        </Pressable>
-      </Link>
+        <Pressable style={styles.buttonWithIcon} onPress={onButtonBackIndex}>
+			    <Text style={styles.buttonText}>Aceptar</Text>
+			  </Pressable>
 
+        <Link href="/" style={styles.buttonText} asChild>
+          <Text style={styles.buttonWithIcon}>Cancelar</Text>
+        </Link>
+      </View>
     </View>
-	
   );
+
+  
 }
 
 /* 
@@ -157,66 +152,91 @@ username: nombre de usuario que utiliza el usuario en el sistema
 xp: puntos de experiencia (XP) que tiene el usuario
 */
 
-const styles = StyleSheet.create(
-  {
-    container:{
-			flex: 1,
-			justifyContent: "center",
-			alignItems: "center",
-      fontSize:44,
-		}, 
-    profile:{
-      backgroundColor:"#Faa",
-      width:300,
-      height:300,
-      padding:10
-    },
-    footer:{
-      position:"absolute",
-      bottom:5,
-      backgroundColor:"#afa",
-      padding:10,
-    },
-    pfp_image:{
-      width:260,
-      height:260,
-      borderRadius:5,
-    },
-    title:{
-			fontFamily:'poppins',
-			fontSize:44
-		},
-		inputfieldlabel:
-		{
-			flexDirection:'row', //verticalLayout 
-			alignItems: 'center',
-			justifyContent: 'center',
-			width:'60%'
-		},
-		input: {
-			height: 40,
-			width:250,
-			margin: 12,
-			borderWidth: 1,
-			padding: 10,
-		  },
-    error:{
-      color: "#F00",
-      padding: 5,
-    },
-    button: {
-      backgroundColor: '#007bff', // Color de fondo del botón
-      paddingVertical: 12, // Espaciado vertical
-      paddingHorizontal: 20, // Espaciado horizontal
-      borderRadius: 5, // Bordes redondeados
-      alignItems: 'center', // Centra el texto horizontalmente
-      justifyContent: 'center', // Centra el texto verticalmente
-      marginVertical: 10, // Espacio entre botones
-    },
-    buttonText: {
-      color: 'white', // Color del texto
-      fontSize: 16, // Tamaño de la fuente
-      fontWeight: 'bold', // Hacer el texto en negrita
-    },
-  }
-)
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFC900", // Fondo amarillo brillante
+  },
+  innerContainer: {
+    width: "80%",
+    padding: 20,
+    backgroundColor: "#90A8ED",
+    borderWidth: 4,
+    borderColor: "#000",
+    borderRadius: 8,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 8, height: 8 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "900",
+    color: "#000",
+    marginBottom: 10,
+    textTransform: "uppercase",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#000",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  infoText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#333",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  inputFieldLabel: {
+    width: "100%",
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#000",
+    marginBottom: 5,
+  },
+  input: {
+    height: 40,
+    borderColor: "#000",
+    borderWidth: 2,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: "#FFF",
+  },
+  error: {
+    color: "#FF0000",
+    padding: 5,
+    fontSize: 14,
+    marginTop: 5,
+  },
+  buttonWithIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FF90E8",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 6,
+    borderWidth: 3,
+    borderColor: "#000",
+    shadowColor: "#000",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    marginTop: 15,
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "700",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
+});

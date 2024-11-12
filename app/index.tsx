@@ -3,8 +3,7 @@ import { Text, View, StyleSheet,
 } from "react-native";
 import * as Crypto from 'expo-crypto';
 import { useFonts } from "expo-font"; //para utilizar una fuente custom 
-import IconRocket from './iconrocket';
-import IconCar from './iconcar';
+import IconLogo from './iconrocket';
 import { Endpoints } from '../constants/Endpoint'; //se pone entre llaves porque es un objeto JavaScript (JSON)
 import { Link, router } from "expo-router" //para navegar entre ventanas
 
@@ -46,6 +45,11 @@ export default function Index() {
 		//hashear la contraseña
 		//await: función que tarda en regresar, no es síncrona
 
+		if (!userValue || !passValue) {
+			setFailedLogin(true); // Muestra el mensaje de error
+			return; // Termina la ejecución de la función
+		}
+
 		const passDigest = await Crypto.digestStringAsync(
 			Crypto.CryptoDigestAlgorithm.SHA256, passValue);
 		console.log(passDigest);
@@ -73,86 +77,137 @@ export default function Index() {
 	}
 
 
-  return (
-    <View style={styles.container}>
-		<IconRocket width='100' height='100'></IconRocket>
-		<IconCar width='50' height='50'></IconCar> 
-		<Text style={styles.title}>ConnectMe</Text>
-		<Text >Conecta, Impacta, Destaca</Text>
-		<View style={styles.inputfieldlabel}>
-			<Text >Usuario</Text>
-			<TextInput style={styles.input} onChangeText={setUserValue}></TextInput>
-		</View>
-
-		<View style={styles.inputfieldlabel}>
-			<Text >Contraseña</Text>
-			<TextInput style={styles.input} 
-				secureTextEntry="true"
-				onChangeText={onPassValue}
-			></TextInput>
-		</View>
-
-		{failedLogin? (<Text style={styles.error}>Usuario o contraseña incorrectos</Text>):undefined}
-
-		<Pressable style={styles.botonconlogo} onPress={onButtonLogin}>
-			<IconCar width='32' height='32'></IconCar>
-			<Text>Log In</Text>
-		</Pressable>
-
-		<Text >¿No tienes una cuenta?</Text>
-
-		<Pressable style={styles.botonconlogo} onPress={onButtonRegister}>  
-			<IconRocket width='32' height='32'></IconRocket>
-			<Text>Regístrate.</Text>
-		</Pressable>
-
-		<Link href="/mainmenu" asChild>
-			<Button title ="main"></Button>
-		</Link>
-    </View>
+	return (
+		<View style={styles.container}>
+		  <View style={styles.innerContainer}>
+			<IconLogo width={100} height={100} />
+			<Text style={styles.title}>ConnectMe</Text>
+			<Text style={styles.subtitle}>Conecta, Impacta, Destaca</Text>
 	
-  );
-}
-
-
-const styles=StyleSheet.create(
-	{
-		container:{
-			flex: 1,
-			justifyContent: 'center',
-			alignItems: 'center',
-		},
-		title:{
-			fontFamily:'poppins',
-			fontSize:44
-		},
-		inputfieldlabel:
-		{
-			flexDirection:'row', //verticalLayout 
-			alignItems: 'center',
-			justifyContent: 'center',
-			width:'60%'
-		},
-		input: {
-			height: 40,
-			width:150,
-			margin: 12,
-			borderWidth: 1,
-			padding: 10,
-		  },
-		botonconlogo:
-		{
-			backgroundColor:'#F9D689',
-			flexDirection:'row',
-			alignItems: 'center',
-			padding:10,
-			borderRadius:5
-		},
-		error:{
-			color: "#F00",
-			padding: 5,
-		},
-		//#973131 #E0A75E #F9D689 #F5E7B2
-		
+			<View style={styles.inputFieldLabel}>
+			  <Text style={styles.label}>Usuario</Text>
+			  <TextInput
+				style={styles.input}
+				onChangeText={setUserValue}
+				placeholder="Ingresa tu usuario"
+			  />
+			</View>
+	
+			<View style={styles.inputFieldLabel}>
+			  <Text style={styles.label}>Contraseña</Text>
+			  <TextInput
+				style={styles.input}
+				secureTextEntry={true}
+				onChangeText={setPassValue}
+				placeholder="Ingresa tu contraseña"
+			  />
+			</View>
+	
+			{failedLogin ? (<Text style={styles.error}>Usuario o contraseña incorrectos</Text>):undefined}
+	
+			<Pressable style={styles.buttonWithIcon} onPress={onButtonLogin}>
+			  <Text style={styles.buttonText}>Log In</Text>
+			</Pressable>
+	
+			<Text style={styles.infoText}>¿No tienes una cuenta?</Text>
+	
+			<Pressable style={styles.buttonWithIcon} onPress={onButtonRegister}>
+			  <Text style={styles.buttonText}>Regístrate</Text>
+			</Pressable>
+		{/* 
+			<Link href="/mainmenu" asChild>
+			  <Button title="Ir a Main Menu" color="#FFC900" />
+			</Link>
+		*/}
+		  </View>	
+		</View>
+	  );
 	}
-)
+	
+	const styles = StyleSheet.create({
+	  container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#FFC900", // Fondo amarillo brillante
+	  },
+	  innerContainer: {
+		width: "80%",
+		padding: 20,
+		backgroundColor: "#90A8ED",
+		borderWidth: 4,
+		borderColor: "#000",
+		borderRadius: 8,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: { width: 8, height: 8 },
+		shadowOpacity: 1,
+		shadowRadius: 0,
+	  },
+	  title: {
+		fontSize: 32,
+		fontWeight: "900",
+		color: "#000",
+		marginBottom: 10,
+		textTransform: "uppercase",
+	  },
+	  subtitle: {
+		fontSize: 18,
+		fontWeight: "600",
+		color: "#000",
+		marginBottom: 20,
+	  },
+	  inputFieldLabel: {
+		width: "100%",
+		marginBottom: 10,
+	  },
+	  label: {
+		fontSize: 16,
+		fontWeight: "700",
+		color: "#000",
+		marginBottom: 5,
+	  },
+	  input: {
+		height: 40,
+		borderColor: "#000",
+		borderWidth: 2,
+		paddingHorizontal: 10,
+		borderRadius: 5,
+		backgroundColor: "#FFF",
+	  },
+	  error: {
+		color: "#FF0000",
+		padding: 5,
+		fontSize: 14,
+		marginTop: 5,
+	  },
+	  buttonWithIcon: {
+		flexDirection: "row",
+		alignItems: "center",
+		backgroundColor: "#FF90E8",
+		paddingVertical: 10,
+		paddingHorizontal: 20,
+		borderRadius: 6,
+		borderWidth: 3,
+		borderColor: "#000",
+		shadowColor: "#000",
+		shadowOffset: { width: 5, height: 5 },
+		shadowOpacity: 1,
+		shadowRadius: 0,
+		marginTop: 15,
+	  },
+	  buttonText: {
+		color: "#000",
+		fontSize: 16,
+		fontWeight: "700",
+		marginLeft: 10,
+		textTransform: "uppercase",
+	  },
+	  infoText: {
+		color: "#000",
+		fontSize: 16,
+		fontWeight: "600",
+		marginTop: 20,
+		marginBottom: 10,
+	  },
+	});

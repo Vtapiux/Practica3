@@ -10,17 +10,22 @@ export default function Perfil() {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Text style={styles.greeting}>Welcome back, {loginData.firstname}!</Text>
+        <Text style={styles.greeting}>Bienvenido, {loginData.firstname}!</Text>
+        
+        <Link href="/CambiarFoto">
+          <Image style={styles.pfpImage} source={{ uri: loginData.pfp_url }} />
+        </Link>
+
         <Text style={styles.info}>ID: {loginData.id}</Text>
+        <Text style={styles.info}>{loginData.firstname} {loginData.lastname}</Text>
         <Text style={styles.info}>Correo: {loginData.email}</Text>
-        <Text style={styles.info}>{loginData.credits} créditos</Text>
+        <Text style={styles.info}>{loginData.credits} credits!</Text>
         <Text style={styles.info}>{loginData.xp} XP!</Text>
-        <Image style={styles.pfpImage} source={{ uri: loginData.pfp_url }} />
       </View>
 
       <View style={styles.footer}>
         <Link href="/creditos">
-          <Text style={styles.footerText}>Créditos de ConnectMe</Text>
+          <Text style={styles.footerText}>¡Conoce el Equipo ConnectMe Aquí!</Text>
         </Link>
       </View>
     </View>
@@ -75,8 +80,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   pfpImage: {
-    width: 120,
-    height: 120,
+    width: 180,
+    height: 180,
     borderRadius: 4,
     borderWidth: 4,
     borderColor: "#000",

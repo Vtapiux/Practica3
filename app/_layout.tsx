@@ -10,7 +10,6 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{headerShown: false}} />
         <Stack.Screen name="mainmenu" />
-        <Stack.Screen name="register"  options={{headerShown: false}} />
         <Stack.Screen name="credits" />
       </Stack>
     </MyContextProvider>

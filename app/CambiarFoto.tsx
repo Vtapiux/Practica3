@@ -1,37 +1,43 @@
-// Pantalla de créditos con formato mejorado
-import { View, Text, StyleSheet } from "react-native";
+// Pantalla de mainmenu de pruebas
+import { View, Text, Image, StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import { useContext } from "react";
+import { MyContext } from "./Context";
 
-export default function Credits() {
+export default function Perfil() {
+  const { loginData } = useContext(MyContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Text style={styles.greeting}>Equipo ConnectMe</Text>
-        <Text style={styles.info}>901CIB</Text>
-        <Text style={styles.info}>------ Miembros ------</Text>
-        <Text style={styles.info}>Emiliano Jorge García Vázquez</Text>
-        <Text style={styles.info}>Marco Antonio Graciano Ortíz</Text>
-        <Text style={styles.info}>Valeria Tapia</Text>
+        <Text style={styles.greeting}>Estamos en arreglando la pagina</Text>
       </View>
-
-      <View style={styles.footer}>
-      <Link href="/mainmenu">
-        <Text style={styles.footerText}>Tu Perfil</Text>
-      </Link>
-    </View>
     </View>
   );
 }
+
+/* 
+ESTRUCTURA DEL JSON LOGINDATA
+
+credits: indica la cantidad de créditos que tiene el usuario
+email: dirección de correo del usuario
+firstname: contiene el nombre de pila del usuario
+id: identificador único para el usuario del sistema
+lastname: almacena el apellido del usuario
+pfp_url: URL de la imagen de perfil del usuario
+username: nombre de usuario que utiliza el usuario en el sistema
+xp: puntos de experiencia (XP) que tiene el usuario
+*/
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFC900", // Fondo
+    backgroundColor: "#FFC900", // Fondo amarillo brillante
   },
   profile: {
-    backgroundColor: "#23A094", // Fondo contenedor
+    backgroundColor: "#90A8ED", // Fondo azul claro del perfil
     width: 340,
     padding: 20,
     borderWidth: 4,
@@ -57,6 +63,14 @@ const styles = StyleSheet.create({
     color: "#000",
     marginBottom: 5,
   },
+  pfpImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 4,
+    borderWidth: 4,
+    borderColor: "#000",
+    marginTop: 15,
+  },
   footer: {
     position: "absolute",
     bottom: 20,
@@ -79,4 +93,3 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 });
-

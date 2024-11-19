@@ -30,46 +30,58 @@ export const AuthContextProvider = ({children}) =>{
   );
 };*/
 
+import React, { createContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { createContext, useState } from "react";
-
-// Context para datos de login
+// Crear contexto global
 export const MyContext = createContext({
   loginData: {},
   setLoginData: () => {},
-  updateProfilePicture: () => {}, // esta es la función para actualizar la foto de perfil
+  updateProfilePicture: () => {},
 });
 
 export const MyContextProvider = ({ children }) => {
   const [loginData, setLoginData] = useState({});
 
-  // se añadió la función para actualizar la imagen de perfil dependiendo de la que se haya subido en el cambiarfoto
-  const updateProfilePicture = (newUrl) => {
-    setLoginData((prevData) => ({
-      ...prevData,
-      pfp_url: newUrl, // Actualiza solo la URL de la imagen de perfil
-    }));
+  // Guardar los datos en AsyncStorage
+  const saveLoginData = async (data) => {
+    try {
+      await AsyncStorage.setItem("loginData", JSON.stringify(data));
+    } catch (error) {
+      console.error("Error al guardar los datos en AsyncStorage:", error);
+    }
+  };
+
+  // Cargar los datos desde AsyncStorage al iniciar
+  const loadLoginData = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem("loginData");
+      return storedData ? JSON.parse(storedData) : {};
+    } catch (error) {
+      console.error("Error al cargar los datos desde AsyncStorage:", error);
+      return {};
+    }
+  };
+
+  useEffect(() => {
+    loadLoginData().then((data) => {
+      setLoginData(data);
+    });
+  }, []);
+
+  // Actualizar la imagen de perfil
+  const updateProfilePicture = async (newUrl) => {
+    const updatedData = { ...loginData, pfp_url: newUrl };
+    setLoginData(updatedData);
+    await saveLoginData(updatedData); // Guardar cambios en AsyncStorage
   };
 
   return (
-    <MyContext.Provider value={{ loginData, setLoginData, updateProfilePicture }}>
+    <MyContext.Provider
+      value={{ loginData, setLoginData, updateProfilePicture }}
+    >
       {children}
     </MyContext.Provider>
   );
 };
 
-// Context para datos de registro
-export const AuthContext = createContext({
-  registerUser: {},
-  setRegisterUser: () => {},
-});
-
-export const AuthContextProvider = ({ children }) => {
-  const [registerUser, setRegisterUser] = useState({});
-
-  return (
-    <AuthContext.Provider value={{ registerUser, setRegisterUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
